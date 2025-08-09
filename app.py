@@ -11,9 +11,8 @@ st.set_page_config(
     )
 
 # Carregar os dados
-# df = pd.read_csv("https://raw.githubusercontent.com/vqrca/dashboard_salario_dados/refs/heads/main/dados-imersao-final.csv")
-df = pd.read_csv("https://raw.githubusercontent.com/AleSales1/aula4_imersao_python/refs/heads/main/dados_imersao_final.csv?token=GHSAT0AAAAAADI5YBUMCQY7273LVL6AMTA62EXWBGA")
-#df = pd.read_csv("C:\Users\nunes\OneDrive\Documentos\PYTHON_ALURA\.venv\dados_imersao_final.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/AleSales1/aula4_imersao_python/refs/heads/main/dados_imersao_final.csv")
+
 # barra lateral
 st.sidebar.header("Filtros")
 
@@ -73,7 +72,7 @@ col_graf1, col_graf2 = st.columns(2)
 
 with col_graf1:
     if not df_filtrado.empty:
-        top_cargos = df_filtrado.groupby('cargo')['usd'].mean().nlargest(10).sort_values(ascending=True).reset_index()()
+        top_cargos = df_filtrado.groupby('cargo')['usd'].mean().nlargest(10).sort_values(ascending=True).reset_index()
         grafico_cargos = px.bar(
             top_cargos, 
             x='usd', 
@@ -82,7 +81,7 @@ with col_graf1:
             title='Top 10 Cargos com Maior Salário Médio',
             labels={'usd': 'Média salarial anual (USD)', 'cargo': ''}
         )
-        grafico_cargos.update_layout(title_x=0.1, yaxis={'categoryorder':'total ascending'}),
+        grafico_cargos.update_layout(title_x=0.1, yaxis={'categoryorder':'total ascending'})
         st.plotly_chart(grafico_cargos, use_container_width=True)
     else:  
         st.warning("Nenhum dado disponível para os filtros selecionados.")                      
